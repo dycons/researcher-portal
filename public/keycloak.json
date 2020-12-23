@@ -1,0 +1,8 @@
+{
+  "realm": "dycons-researcher-idp",
+  "auth-server-url": "http://127.0.0.1:3002/auth/",
+  "ssl-required": "external",
+  "resource": "researcher-portal-client",
+  "public-client": true,
+  "confidential-port": 0
+}
