@@ -1,25 +1,25 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Keycloak from 'keycloak-js';
 import TokenDisplay from './TokenDisplay';
-import LoginButton from './LoginButton';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-    this.state = { keycloak: null, authenticated: false };
+  constructor(props) {
+    super(props);
+    this.state = { keycloak: null };
   }
 
   componentDidMount() {
+    console.log('mount')
     const keycloak = Keycloak('/keycloak.json');
+    this.setState({ keycloak: keycloak });
     keycloak.init({ onLoad: 'login-required' }).then(authenticated => {
-      this.setState({ keycloak: keycloak, authenticated: authenticated });
+      this.props.setAuthn(authenticated);
     });
   }
 
   render() {
     console.log(this.state)
-    if (this.state.authenticated) {
+    if (this.state.keycloak && this.props.isLoggedIn) {
       return (
         <TokenDisplay
           username={this.state.keycloak.idTokenParsed.preferred_username}

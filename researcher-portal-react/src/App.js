@@ -1,24 +1,24 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './components/Login';
 import LoginButton from './components/LoginButton';
 
 
-function App() {
-  document.title = 'Login';
+// function App() {
+//   document.title = 'Login';
 
 
-  return (
-    <BrowserRouter>
-      <div>
-        <LoginButton />
-        <Switch>
-          <Route path='/token' component={Login} />
-        </Switch>
-      </div>
-    </BrowserRouter>
-  );
-}
+//   return (
+//     <BrowserRouter>
+//       <div>
+//         <LoginButton />
+//         <Switch>
+//           <Route path='/token' component={Login} />
+//         </Switch>
+//       </div>
+//     </BrowserRouter>
+//   );
+// }
 
 // function getLoginBtnIfNotLoggedIn() {
 //   const loggedIn = localStorage.getItem('loggedIn');
@@ -32,41 +32,42 @@ function App() {
 //   return;
 // }
 
-// class App extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = { authenticated: false };
-//   }
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = { authenticated: false };
+  }
 
-//   render() {
-//     document.title = 'Login';
-//     console.log(this.state.authenticated)
+  render() {
+    document.title = 'Login';
+    console.log(this.state.authenticated)
 
-//     return (
-//       <BrowserRouter>
-//         <div>
-//           <LoginButton />
-//           <Switch>
+    return (
+      <BrowserRouter>
+        <div>
+          {!this.state.authenticated ? <LoginButton /> : null}
+          <Switch>
+            <Route path='/token'>
+              <Login setAuthn={(authn) => this.setAuthenticated(authn)} isLoggedIn={this.state.authenticated} />
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
+    );
+  }
 
-//             <Route path='/login' component={Login} />
-//           </Switch>
-//         </div>
-//       </BrowserRouter>
-//     );
-//   }
+  setAuthenticated(authn) {
+    this.setState({ authenticated: authn });
+  }
 
-//   isAuthenticated() {
-//     this.setState({ authenticated: true });
-//   }
-
-//   getLoginButton() {
-//     return (
-//       <Link to='/login'>
-//         Log In
-//       </Link>
-//     );
-//   }
-// }
+  // getLoginButton() {
+  //   return (
+  //     <Link to='/login'>
+  //       Log In
+  //     </Link>
+  //   );
+  // }
+}
 
 // function App() {
 //   return (
