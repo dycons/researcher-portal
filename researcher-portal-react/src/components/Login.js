@@ -9,7 +9,6 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mount')
     const keycloak = Keycloak('/keycloak.json');
     this.setState({ keycloak: keycloak });
     keycloak.init({ onLoad: 'login-required' }).then(authenticated => {
@@ -18,7 +17,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     if (this.state.keycloak && this.props.isLoggedIn) {
       return (
         <TokenDisplay
@@ -30,18 +28,6 @@ class Login extends React.Component {
     }
 
     return null;
-  //   else {
-  //     return (
-  //       // <BrowserRouter
-  //         <button onClick={(e) => this.loginButtonHandler(e)}>
-  //           Log In
-  //         </button>
-  //         /* <Switch>
-  //           <Route path='/token' component={Login} />
-  //         </Switch> */
-  //       // </BrowserRouter>
-  //     );
-  //   }
   }
 }
 
