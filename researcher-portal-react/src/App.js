@@ -4,23 +4,21 @@ import Login from './components/Login';
 import LoginButton from './components/LoginButton';
 
 
-localStorage.setItem('loggedIn', false);
-
-// function App() {
-//   document.title = 'Login';
+function App() {
+  document.title = 'Login';
 
 
-//   return (
-//     <BrowserRouter>
-//       <div>
-//         {getLoginBtnIfNotLoggedIn()}
-//         <Switch>
-//           <Route path='/login' component={Login} />
-//         </Switch>
-//       </div>
-//     </BrowserRouter>
-//   );
-// }
+  return (
+    <BrowserRouter>
+      <div>
+        <LoginButton />
+        <Switch>
+          <Route path='/token' component={Login} />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
+}
 
 // function getLoginBtnIfNotLoggedIn() {
 //   const loggedIn = localStorage.getItem('loggedIn');
@@ -70,10 +68,10 @@ localStorage.setItem('loggedIn', false);
 //   }
 // }
 
-function App() {
-  return (
-    <Login />
-  );
-}
+// function App() {
+//   return (
+//     <Login />
+//   );
+// }
 
 export default App;
