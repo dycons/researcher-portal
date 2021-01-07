@@ -1,5 +1,9 @@
 import React from 'react';
 
+/*
+Returns a component displaying the username, email and token in the props
+parameter.
+*/
 function TokenDisplay(props) {
   document.title = 'Token';
 
