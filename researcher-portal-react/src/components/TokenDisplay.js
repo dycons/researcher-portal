@@ -11,7 +11,7 @@ function TokenDisplay(props) {
     <div>
       <h1>Username: {props.username}</h1>
       <h1>Email: {props.email}</h1>
-      <h1>Token: {props.token}</h1>
+      <h1 style={{wordWrap: 'break-word'}}>Token: {props.token}</h1>
     </div>
   );
 }
