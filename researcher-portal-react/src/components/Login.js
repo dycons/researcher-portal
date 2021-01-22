@@ -1,6 +1,6 @@
 import React from 'react';
 import Keycloak from 'keycloak-js';
-import TokenDisplay from './TokenDisplay';
+import Home from './Home';
 
 /*
 This class is responsible for handling Keycloak authentication functionality.
@@ -25,17 +25,13 @@ class Login extends React.Component {
   }
 
   /*
-  Returns a TokenDisplay component if the user has successfully authenticated.
+  Returns a Home component if the user has successfully authenticated.
   Otherwise, returns null.
   */
   render() {
     if (this.state.keycloak && this.state.isLoggedIn) {
       return (
-        <TokenDisplay
-          username={this.state.keycloak.idTokenParsed.preferred_username}
-          token={this.state.keycloak.token}
-          email={this.state.keycloak.idTokenParsed.email}
-        />
+        <Home />
       );
     }
 

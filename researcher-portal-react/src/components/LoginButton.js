@@ -6,7 +6,7 @@ Returns a component displaying the login button.
 */
 function LoginButton() {
   return (
-    <Link to='/token'>
+    <Link to='/home'>
       Log In
     </Link>
   );
