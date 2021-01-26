@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './components/Login';
 import LoginButton from './components/LoginButton';
 import Katsu from './components/Katsu';
+import Home from './components/Home';
 
 /*
 Returns a BrowserRouter component that specifies the component
@@ -18,10 +19,10 @@ function App() {
           <LoginButton />
         </Route>
         <Route path='/home'>
-          <Login />
+          <Login component={Home} />
         </Route>
         <Route path='/katsu'>
-          <Katsu />
+          <Login component={Katsu} />
         </Route>
       </Switch>
     </BrowserRouter>

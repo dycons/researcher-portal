@@ -1,13 +1,12 @@
 import React from 'react';
 import Keycloak from 'keycloak-js';
-import Home from './Home';
 
 /*
 This class is responsible for handling Keycloak authentication functionality.
 */
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { keycloak: null, isLoggedIn: false };
   }
 
@@ -25,14 +24,12 @@ class Login extends React.Component {
   }
 
   /*
-  Returns a Home component if the user has successfully authenticated.
+  Returns the component in the props if the user has successfully authenticated.
   Otherwise, returns null.
   */
   render() {
     if (this.state.keycloak && this.state.isLoggedIn) {
-      return (
-        <Home />
-      );
+      return <this.props.component />;
     }
 
     return null;
