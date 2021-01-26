@@ -10,8 +10,6 @@ Returns a BrowserRouter component that specifies the component
 that should be displayed for each route.
 */
 function App() {
-  document.title = 'Login';
-
   return (
     <BrowserRouter>
       <Switch>

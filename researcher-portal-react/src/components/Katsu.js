@@ -33,6 +33,8 @@ class Katsu extends React.Component {
   of the state.
   */
   render() {
+    document.title = 'Katsu';
+
     const tableRows = this.state.data.map(data => {
       return (
         <tr key={data.id}>

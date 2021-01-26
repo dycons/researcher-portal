@@ -6,6 +6,8 @@ Returns a component displaying a button that allows Katsu clinical
 and phenotypic metadata to be browsed when clicked on.
 */
 function Home() {
+  document.title = 'Home';
+
   return (
     <Link to='/katsu'>
       Browse Katsu clinical and phenotypic metadata
