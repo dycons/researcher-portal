@@ -10,13 +10,20 @@ class Katsu extends React.Component {
   }
 
   /*
-  Fetches data from the /api/individuals endpoint of the Katsu service
-  and modifies it to only keep the id and updated fields. Sets the data
-  variable in the state to this data.
+  Fetches data of 10 individuals from the /api/individuals endpoint of 
+  the Katsu service and modifies it to only keep the id and updated fields. 
+  Sets the data variable in the state to this data.
   */
   componentDidMount() {
-    fetch('http://localhost:8000/api/individuals')
-      .then(response => response.json())
+    fetch('http://localhost:8000/api/individuals?page_size=10')
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        else {
+          throw Error('Invalid response status code');
+        }
+      })
       .then(jsonData => jsonData.results)
       .then(results => results.map(result => {
         const newResult = {};
