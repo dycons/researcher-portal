@@ -9,29 +9,8 @@ class Katsu extends React.Component {
     this.state = { data: [] };
   }
 
-  /*
-  Fetches data of 10 individuals from the /api/individuals endpoint of 
-  the Katsu service and modifies it to only keep the id and updated fields. 
-  Sets the data variable in the state to this data.
-  */
   componentDidMount() {
-    fetch('http://localhost:8000/api/individuals?page_size=10')
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        else {
-          throw Error('Invalid response status code');
-        }
-      })
-      .then(jsonData => jsonData.results)
-      .then(results => results.map(result => {
-        const newResult = {};
-        newResult.id = result.id;
-        newResult.updated = result.updated;
-        return newResult;
-      }))
-      .then(finalResults => this.setState({ data: finalResults }))
+    this.fetchData()
       .catch(err => alert(err));
   }
 
@@ -64,6 +43,30 @@ class Katsu extends React.Component {
         </tbody>
       </table>
     );
+  }
+
+  /*
+  Fetches data of 10 individuals from the /api/individuals endpoint of 
+  the Katsu service and modifies it to only keep the id and updated fields. 
+  Sets the data variable in the state to this data.
+  */
+  async fetchData() {
+    const url = 'http://localhost:8000/api/individuals?page_size=10';
+    const response = await fetch(url);
+    if (response.ok) {
+      const json = await response.json();
+      const results = json.results === undefined ? [] : json.results;
+      const finalResults = results.map(result => {
+        const newResult = {};
+        newResult.id = result.id;
+        newResult.updated = result.updated;
+        return newResult;
+      });
+      this.setState({ data: finalResults });
+    }
+    else {
+      throw Error('Invalid response status code');
+    }
   }
 }
 
