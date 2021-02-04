@@ -29,7 +29,7 @@ class Login extends React.Component {
   */
   render() {
     if (this.state.keycloak && this.state.isLoggedIn) {
-      return <this.props.component />;
+      return this.props.children;
     }
 
     return null;

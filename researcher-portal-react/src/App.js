@@ -17,10 +17,14 @@ function App() {
           <LoginButton />
         </Route>
         <Route path='/home'>
-          <Login component={Home} />
+          <Login>
+            <Home />
+          </Login>
         </Route>
         <Route path='/katsu'>
-          <Login component={Katsu} />
+          <Login>
+            <Katsu />
+          </Login>
         </Route>
       </Switch>
     </BrowserRouter>
