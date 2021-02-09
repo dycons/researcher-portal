@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 Returns a component displaying the login button.
 */
 function LoginButton() {
+  document.title = 'Login';
+
   return (
-    <Link to='/token'>
+    <Link to='/home'>
       Log In
     </Link>
   );
