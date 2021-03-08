@@ -4,8 +4,8 @@ import React from 'react';
 This class is responsible for displaying Katsu clinical and phenotypic metadata.
 */
 class Katsu extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { data: [] };
   }
 
@@ -52,7 +52,11 @@ class Katsu extends React.Component {
   */
   async fetchData() {
     const url = 'http://localhost:8000/api/individuals?page_size=10';
-    const response = await fetch(url);
+    const headers = {
+      'x-candig-ext-rems': this.props.entitlements
+    };
+
+    const response = await fetch(url, { headers: headers });
     if (response.ok) {
       const json = await response.json();
       const results = json.results === undefined ? [] : json.results;
