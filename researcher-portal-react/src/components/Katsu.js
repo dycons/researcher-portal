@@ -53,7 +53,7 @@ class Katsu extends React.Component {
   async fetchData() {
     const url = 'http://localhost:8000/api/individuals?page_size=10';
     const headers = {
-      'x-candig-ext-rems': this.props.entitlements
+      'x-candig-ext-rems': JSON.stringify(this.props.entitlements)
     };
 
     const response = await fetch(url, { headers: headers });
