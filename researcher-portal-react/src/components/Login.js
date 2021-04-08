@@ -7,7 +7,7 @@ This class is responsible for handling Keycloak authentication functionality.
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { keycloak: null, isLoggedIn: false, entitlements: [] };
+    this.state = { keycloak: null, isLoggedIn: false, entitlements: {} };
   }
 
   componentDidMount() {
@@ -62,8 +62,7 @@ class Login extends React.Component {
     }
 
     if (response.ok) {
-      const json = await response.json();
-      const entitlements = json.ga4gh_passport_v1;
+      const entitlements = await response.json();
       this.setState({ entitlements: entitlements });
     }
     else {
