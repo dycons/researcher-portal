@@ -48,6 +48,9 @@ class Login extends React.Component {
   */
   async fetchEntitlements() {
     const url = 'http://localhost:3001/api/permissions/' + this.state.keycloak.subject;
+    // Use of REMS owner ID in the request headers is a temporary workaround.
+    // Once REMS #2631 (https://github.com/CSCfi/rems/issues/2631) is completed, this
+    // request should be modified appropriately.
     const headers = {
       'x-rems-api-key': 'rp',
       'x-rems-user-id': process.env.REACT_APP_REMS_OWNER_ID
@@ -57,7 +60,7 @@ class Login extends React.Component {
     try {
       response = await fetch(url, { headers: headers });
     } catch (error) {
-      alert('Failed to fetch entitlements from REMS\nError: ' + error.message);
+      alert(`Failed to fetch entitlements from REMS\nError: ${error.message}`);
       return;
     }
 
@@ -67,7 +70,6 @@ class Login extends React.Component {
     }
     else {
       alert('Failed to fetch entitlements from REMS\nError: Invalid response status code');
-      return;
     }
   }
 }
