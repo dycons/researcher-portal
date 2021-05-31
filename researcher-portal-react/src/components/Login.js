@@ -11,7 +11,7 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    this.logInToKeycloak()
+    this.authUser()
       .catch(err => alert(err));
   }
 
@@ -30,12 +30,13 @@ class Login extends React.Component {
   }
 
   /*
-  Redirects to the Keycloak login page. 
+  Authenticates the user through the Keycloak login page and then authorizes
+  the user by calling the fetchEntitlements() function. 
   Sets the keycloak variable in the state to a Keycloak object. Sets the 
   isLoggedIn variable in the state to true if the user successfully 
   authenticates and false if the user does not.
   */
-  async logInToKeycloak() {
+  async authUser() {
     const keycloak = Keycloak('/keycloak.json');
     const authenticated = await keycloak.init({ onLoad: 'login-required' });
     this.setState({ keycloak: keycloak, isLoggedIn: authenticated }, () => this.fetchEntitlements());
