@@ -50,7 +50,7 @@ class Login extends React.Component {
   async fetchEntitlements() {
     const url = 'http://localhost:3001/api/permissions/' + this.state.keycloak.subject;
     const headers = {
-      'x-rems-api-key': 'abc123', //process.env.REACT_APP_REMS_API_KEY,
+      'x-rems-api-key': process.env.REACT_APP_REMS_API_KEY,
       'x-rems-user-id': this.state.keycloak.subject
     };
 
