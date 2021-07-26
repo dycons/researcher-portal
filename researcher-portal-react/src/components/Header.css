@@ -1,0 +1,31 @@
+.header {
+    background-color: #9bc4be;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.logo {
+    width: 90px;
+    padding: 10px;
+}
+
+.dycons-logo-title {
+    padding: 5px;
+    width: 320px;
+}
+
+.dycons-title {
+    font-size: 60px;
+    font-weight: 900;
+    color: #355550;
+    vertical-align: middle;
+}
+
+.rp-title {
+    font-size: 110px;
+    font-weight: lighter;
+    color: #355550;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: flex-end;
+}
