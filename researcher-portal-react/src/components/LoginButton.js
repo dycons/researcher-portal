@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { BoxArrowInRight } from 'react-bootstrap-icons'; 
 
-import './LoginButton.css'
+import './LoginButton.css';
 
 /*
 Returns a component displaying the login button.
