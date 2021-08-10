@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from './Table';
 
 /*
 This class is responsible for displaying Katsu clinical and phenotypic metadata.
@@ -6,51 +7,39 @@ This class is responsible for displaying Katsu clinical and phenotypic metadata.
 class Katsu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { individualsData: [], phenopacketsData: [] };
   }
 
   componentDidMount() {
-    this.fetchData()
-      .catch(err => alert(err));
+    this.fetchIndividualsData()
+    .catch(err => alert(err));
+
+    this.fetchPhenopacketsData()
+    .catch(err => alert(err));
   }
 
   /*
-  Returns a table displaying the information in the data variable 
-  of the state.
+  Returns two Table components - the first one displays the data in the 
+  individualsData variable of the state, and the second one displays the
+  data in the phenopacketsData variable of the state.
   */
   render() {
     document.title = 'Katsu';
 
-    const tableRows = this.state.data.map(data => {
-      return (
-        <tr key={data.id}>
-          <td>{data.id}</td>
-          <td>{data.updated}</td>
-        </tr>
-      );
-    });
-
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Updated</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableRows}
-        </tbody>
-      </table>
+      <div>
+        <Table data={this.state.individualsData} name='Individuals' />
+        <Table data={this.state.phenopacketsData} name='Phenopackets' />
+      </div>
     );
   }
 
   /*
   Fetches data of 10 individuals from the /api/individuals endpoint of 
-  the Katsu service and modifies it to only keep the id and updated fields. 
-  Sets the data variable in the state to this data.
+  the Katsu service. 
+  Sets the individualsData variable in the state to this data.
   */
-  async fetchData() {
+  async fetchIndividualsData() {
     const url = 'http://localhost:8000/api/individuals?page_size=10';
     const headers = {
       'x-candig-ext-rems': JSON.stringify(this.props.entitlements)
@@ -60,13 +49,29 @@ class Katsu extends React.Component {
     if (response.ok) {
       const json = await response.json();
       const results = json.results === undefined ? [] : json.results;
-      const finalResults = results.map(result => {
-        const newResult = {};
-        newResult.id = result.id;
-        newResult.updated = result.updated;
-        return newResult;
-      });
-      this.setState({ data: finalResults });
+      this.setState({ individualsData: results });
+    }
+    else {
+      throw Error('Invalid response status code');
+    }
+  }
+
+  /*
+  Fetches data of 10 phenopackets from the /api/phenopackets endpoint of 
+  the Katsu service. 
+  Sets the phenopacketsData variable in the state to this data.
+  */
+  async fetchPhenopacketsData() {
+    const url = 'http://localhost:8000/api/phenopackets?page_size=10';
+    const headers = {
+      'x-candig-ext-rems': JSON.stringify(this.props.entitlements)
+    };
+
+    const response = await fetch(url, { headers: headers });
+    if (response.ok) {
+      const json = await response.json();
+      const results = json.results === undefined ? [] : json.results;
+      this.setState({ phenopacketsData: results });
     }
     else {
       throw Error('Invalid response status code');
