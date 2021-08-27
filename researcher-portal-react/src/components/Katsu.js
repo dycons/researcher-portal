@@ -29,6 +29,8 @@ class Katsu extends React.Component {
   }
 
   /*
+  Returns two buttons with a callback on click that sets the value of showChart 
+  in the state. The value depends on which button was clicked.
   If the showChart variable in the state is true, returns a BarChart component 
   that displays distribution of diseases by ethnicity in a stacked bar chart.
   If the showChart variable in the state is false, returns two Table components
