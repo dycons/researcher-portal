@@ -1,5 +1,7 @@
 import React from 'react';
 import Table from './Table';
+import { ButtonGroup, Button } from 'reactstrap';
+import BarChart from './BarChart';
 
 /*
 This class is responsible for displaying Katsu clinical and phenotypic metadata.
@@ -7,7 +9,15 @@ This class is responsible for displaying Katsu clinical and phenotypic metadata.
 class Katsu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { individualsData: [], phenopacketsData: [] };
+    this.state = { showChart: true, individualsData: [], phenopacketsData: [] };
+  }
+
+  /*
+  Sets the showChart variable in the state to the value of parameter newStatus.
+  Parameter newStatus is a boolean.
+  */
+  showChartStatus(newStatus) {
+    this.setState({ showChart: newStatus });
   }
 
   componentDidMount() {
@@ -19,17 +29,33 @@ class Katsu extends React.Component {
   }
 
   /*
-  Returns two Table components - the first one displays the data in the 
-  individualsData variable of the state, and the second one displays the
-  data in the phenopacketsData variable of the state.
+  If the showChart variable in the state is true, returns a BarChart component 
+  that displays distribution of diseases by ethnicity in a stacked bar chart.
+  If the showChart variable in the state is false, returns two Table components
+  that display the individualsData variable of the state and the phenopacketsData 
+  variable of the state.
   */
   render() {
     document.title = 'Katsu';
+    const buttons = <ButtonGroup>
+      <Button onClick={() => this.showChartStatus(true)}>Chart</Button>
+      <Button onClick={() => this.showChartStatus(false)}>Table</Button>
+    </ButtonGroup>;
+
+    let dataToDisplay;
+    if (this.state.showChart) {
+      dataToDisplay = <BarChart phenopacketsData={this.state.phenopacketsData} individualsData={this.state.individualsData} />;
+    } else {
+      dataToDisplay = <div>
+        <Table data={this.state.individualsData} name='Individuals' />
+        <Table data={this.state.phenopacketsData} name='Phenopackets' />
+      </div>;
+    }
 
     return (
       <div>
-        <Table data={this.state.individualsData} name='Individuals' />
-        <Table data={this.state.phenopacketsData} name='Phenopackets' />
+        {buttons}
+        {dataToDisplay}
       </div>
     );
   }
